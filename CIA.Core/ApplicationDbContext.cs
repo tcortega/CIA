@@ -17,6 +17,6 @@ namespace CIA.Core
 
         public DbSet<StoreEntity> Stores { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
-        public DbSet<InventoryEntity> Inventories { get; set; }
+        public DbSet<StoreProductEntity> StoreProducts { get; set; }
     }
 }

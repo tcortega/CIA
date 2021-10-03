@@ -10,22 +10,22 @@ namespace CIA.Core.Entities
     /// This entity stores the information about which and how many
     /// products a store have, and what is its price.
     /// </summary>
-    public class InventoryEntity : Entity
+    public class StoreProductEntity : Entity
     {
         /// <summary>
-        /// The store that owns this inventory.
+        /// The store that owns this product.
         /// </summary>
         public StoreEntity Store { get; set; }
         /// <summary>
-        /// The product in the inventory.
+        /// The product which the store owns.
         /// </summary>
         public ProductEntity Product { get; set; }
         /// <summary>
-        /// The price of the product in the inventory.
+        /// The price of the product in the given store.
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// The quantity of the products in the inventory.
+        /// The quantity of the products in the given store.
         /// </summary>
         public int Quantity { get; set; }
     }
