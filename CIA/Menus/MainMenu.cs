@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public class MainMenu
+    public static class MainMenu
     {
         public static void Display()
         {
