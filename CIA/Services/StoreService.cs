@@ -9,6 +9,5 @@ namespace CIA.Services
     public class StoreService
     {
         public StoreService() { }
-        public void DisplayMenu() { }
     }
 }
