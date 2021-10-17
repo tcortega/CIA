@@ -12,11 +12,13 @@ namespace CIA
     {
         private readonly StoreMenu _storeMenu;
         private readonly ProductMenu _productMenu;
+        private readonly SalesMenu _salesMenu;
 
-        public ChoiceHandler(StoreMenu storeMenu, ProductMenu productMenu)
+        public ChoiceHandler(StoreMenu storeMenu, ProductMenu productMenu, SalesMenu salesMenu)
         {
             _storeMenu = storeMenu;
             _productMenu = productMenu;
+            _salesMenu = salesMenu;
         }
 
         public void Handle(MainMenuChoices choice)
