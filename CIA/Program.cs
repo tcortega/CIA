@@ -40,8 +40,10 @@ namespace CIA
         static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
             // Services
-            services.AddScoped<StoreService>();
             services.AddTransient<CIAService>();
+            services.AddScoped<StoreService>();
+            services.AddScoped<ProductService>();
+
 
             // Menus
             services.AddScoped<MainMenu>();
@@ -53,6 +55,7 @@ namespace CIA
 
             // Repositories
             services.AddScoped<IStoreRepository, DbStoreRepository>();
+            services.AddScoped<IProductRepository, DbProductRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(context.Configuration.GetConnectionString("DefaultConnection"),

@@ -26,5 +26,23 @@ namespace CIA.Helpers
                 Name = entity.Name
             };
         }
+
+        public static ProductEntity MapProductDtoToEntity(ProductDto dto)
+        {
+            return new()
+            {
+                Name = dto.Name
+            };
+        }
+
+        public static ProductDto MapProductEntityToDto(ProductEntity entity)
+        {
+            return new()
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
+
     }
 }
