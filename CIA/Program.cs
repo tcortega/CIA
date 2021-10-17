@@ -1,4 +1,7 @@
 ﻿using CIA.Core;
+using CIA.Core.Repositories;
+using CIA.Menus;
+using CIA.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,12 @@ namespace CIA
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices(ConfigureServices)
                 .Build();
+
+            using var context = host.Services.GetRequiredService<ApplicationDbContext>();
+            context.Database.Migrate();
+
+            var svc = ActivatorUtilities.CreateInstance<CIAService>(host.Services);
+            svc.Start();
         }
 
         static void BuildConfig(IConfigurationBuilder builder)
@@ -30,8 +39,14 @@ namespace CIA
 
         static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
+            services.AddScoped<ChoiceHandler>();
+            services.AddScoped<StoreService>();
+            services.AddTransient<CIAService>();
+            services.AddScoped<IStoreRepository, DbStoreRepository>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(context.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(context.Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("CIA.Core")));
         }
     }
 }
