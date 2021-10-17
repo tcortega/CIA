@@ -10,12 +10,12 @@ namespace CIA
 {
     public class ChoiceHandler
     {
-        //private readonly StoreMenu _storeMenu;
+        private readonly StoreMenu _storeMenu;
 
-        //public ChoiceHandler(StoreMenu storeMenu)
-        //{
-        //    _storeMenu = storeMenu;
-        //}
+        public ChoiceHandler(StoreMenu storeMenu)
+        {
+            _storeMenu = storeMenu;
+        }
 
         public void Handle(MainMenuChoices choice)
         {
@@ -24,9 +24,8 @@ namespace CIA
             {
                 case MainMenuChoices.StoreMenu:
                     {
-                        StoreMenu.
-                        var newChoice = Enum.Parse<StoreMenuChoices>(Console.ReadLine());
-                        HandleStoreChoice(newChoice);
+                        var storeChoice = _storeMenu.DisplayAndGetChoice();
+                        HandleStoreChoice(storeChoice);
                         break;
                     }
                 default:
@@ -37,9 +36,20 @@ namespace CIA
             }
         }
 
-        private void HandleStoreChoice(StoreMenuChoices newChoice)
+        private void HandleStoreChoice(StoreMenuChoices choice)
         {
-            throw new NotImplementedException();
+            switch (choice) 
+            {
+                case StoreMenuChoices.Exit:
+                {
+                    break;
+                }
+                case StoreMenuChoices.RegisterStore:
+                {
+                        //var newStore = StoreMenu
+                    break;
+                }
+            }
         }
     }
 }

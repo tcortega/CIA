@@ -6,11 +6,27 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public static class StoreMenu
+    public class StoreMenu : BaseMenu, IMenu<StoreMenuChoices>
     {
-        public static void Display()
+        public StoreMenuChoices DisplayAndGetChoice()
         {
-            Console.WriteLine();
+            StringBuilder textoMenu = new();
+            textoMenu.AppendLine($"MENU DE LOJAS {Environment.NewLine}");
+            textoMenu.AppendLine("1 - Cadastrar uma loja");
+            textoMenu.AppendLine("0 - Sair");
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine(textoMenu);
+                    return Enum.Parse<StoreMenuChoices>(Console.ReadLine());
+                }
+                catch (ArgumentException)
+                {
+                    DisplayInvalidChoice();
+                }
+            }
         }
     }
 }

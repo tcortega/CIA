@@ -8,12 +8,14 @@ namespace CIA
 {
     public enum MainMenuChoices
     {
-        StoreMenu = 1,
+        Exit,
+        StoreMenu
 
     }
 
     public enum StoreMenuChoices
     {
-        RegisterStore = 1
+        Exit,
+        RegisterStore,
     }
 }

@@ -11,10 +11,12 @@ namespace CIA.Services
 {
     public class CIAService
     {
+        private readonly MainMenu _mainMenu;
         private readonly ChoiceHandler _choiceHandler;
 
-        public CIAService(ChoiceHandler choiceHandler)
+        public CIAService(MainMenu mainMenu, ChoiceHandler choiceHandler)
         {
+            _mainMenu = mainMenu;
             _choiceHandler = choiceHandler;
         }
 
@@ -22,14 +24,17 @@ namespace CIA.Services
         {
             Console.Title = "CIA";
 
-            MainMenuChoices choice;
-            do
+            while (true)
             {
-                MainMenu.Display();
-                choice = Enum.Parse<MainMenuChoices>(Console.ReadLine());
+                var choice = _mainMenu.DisplayAndGetChoice();
+                if (choice == MainMenuChoices.Exit)
+                {
+
+                    break;
+                }
 
                 _choiceHandler.Handle(choice);
-            } while (choice != 0);
+            }
         }
 
     }

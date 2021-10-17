@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public static class MainMenu
+    public class MainMenu : BaseMenu, IMenu<MainMenuChoices>
     {
-        public static void Display()
+        public MainMenuChoices DisplayAndGetChoice()
         {
+            var textoMenu = new StringBuilder();
+            textoMenu.AppendLine("MENU PRINCIPAL");
+            textoMenu.AppendLine("1 - Menu de Lojas");
+            textoMenu.AppendLine("");
 
+            textoMenu.Append("Escolha um menu: ");
+
+            Console.Write(textoMenu);
+            return Enum.Parse<MainMenuChoices>(Console.ReadLine());
         }
     }
 }

@@ -39,9 +39,18 @@ namespace CIA
 
         static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
         {
-            services.AddScoped<ChoiceHandler>();
+            // Services
             services.AddScoped<StoreService>();
             services.AddTransient<CIAService>();
+
+            // Menus
+            services.AddScoped<MainMenu>();
+            services.AddScoped<StoreMenu>();
+
+            // Handlers
+            services.AddScoped<ChoiceHandler>();
+
+            // Repositories
             services.AddScoped<IStoreRepository, DbStoreRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
