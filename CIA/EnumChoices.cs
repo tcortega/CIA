@@ -18,4 +18,10 @@ namespace CIA
         Exit,
         RegisterStore,
     }
+
+    public enum ProductMenuChoices
+    {
+        Exit,
+        RegisterProduct
+    }
 }

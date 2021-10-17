@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public class StoreMenu : BaseMenu, IMenu<StoreMenuChoices>
+    public class ProductMenu : BaseMenu, IMenu<ProductMenuChoices>
     {
-        public StoreMenuChoices DisplayAndGetChoice()
+        public ProductMenuChoices DisplayAndGetChoice()
         {
             StringBuilder textoMenu = new();
             textoMenu.AppendLine($"MENU DE LOJAS {Environment.NewLine}");
-            textoMenu.AppendLine("1 - Cadastrar uma loja");
+            textoMenu.AppendLine("1 - Cadastrar um produto");
             textoMenu.AppendLine("0 - Sair");
+            textoMenu.AppendLine("");
+
+            textoMenu.Append("Escolha um menu: ");
 
             while (true)
             {
                 try
                 {
                     Console.Write(textoMenu);
-                    return Enum.Parse<StoreMenuChoices>(Console.ReadLine());
+                    return Enum.Parse<ProductMenuChoices>(Console.ReadLine());
                 }
                 catch (ArgumentException)
                 {
