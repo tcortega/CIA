@@ -9,14 +9,15 @@ namespace CIA
     public enum MainMenuChoices
     {
         Exit,
-        StoreMenu
-
+        StoreMenu,
     }
 
     public enum StoreMenuChoices
     {
         Exit,
         RegisterStore,
+        DeleteStore,
+        ListStores
     }
 
     public enum ProductMenuChoices

@@ -11,10 +11,12 @@ namespace CIA
     public class ChoiceHandler
     {
         private readonly StoreMenu _storeMenu;
+        private readonly ProductMenu _productMenu;
 
-        public ChoiceHandler(StoreMenu storeMenu)
+        public ChoiceHandler(StoreMenu storeMenu, ProductMenu productMenu)
         {
             _storeMenu = storeMenu;
+            _productMenu = productMenu;
         }
 
         public void Handle(MainMenuChoices choice)
@@ -38,17 +40,27 @@ namespace CIA
 
         private void HandleStoreChoice(StoreMenuChoices choice)
         {
-            switch (choice) 
+            switch (choice)
             {
                 case StoreMenuChoices.Exit:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
                 case StoreMenuChoices.RegisterStore:
-                {
-                        //var newStore = StoreMenu
-                    break;
-                }
+                    {
+                        _storeMenu.CreateStore();
+                        break;
+                    }
+                case StoreMenuChoices.DeleteStore:
+                    {
+                        _storeMenu.DeleteStore();
+                        break;
+                    }
+                case StoreMenuChoices.ListStores:
+                    {
+                        _storeMenu.ListStores();
+                        break;
+                    }
             }
         }
     }

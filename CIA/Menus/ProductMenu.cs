@@ -16,7 +16,7 @@ namespace CIA.Menus
             textoMenu.AppendLine("0 - Sair");
             textoMenu.AppendLine("");
 
-            textoMenu.Append("Escolha um menu: ");
+            textoMenu.Append("Escolha uma opção: ");
 
             while (true)
             {

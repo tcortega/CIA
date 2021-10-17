@@ -26,14 +26,21 @@ namespace CIA.Services
 
             while (true)
             {
-                var choice = _mainMenu.DisplayAndGetChoice();
-                if (choice == MainMenuChoices.Exit)
+                try
                 {
+                    var choice = _mainMenu.DisplayAndGetChoice();
+                    if (choice == MainMenuChoices.Exit)
+                    {
+                        break;
+                    }
 
-                    break;
+                    _choiceHandler.Handle(choice);
+                    Console.Clear();
                 }
-
-                _choiceHandler.Handle(choice);
+                catch (ArgumentException)
+                {
+                    _mainMenu.DisplayInvalidChoice();
+                }
             }
         }
 

@@ -46,6 +46,7 @@ namespace CIA
             // Menus
             services.AddScoped<MainMenu>();
             services.AddScoped<StoreMenu>();
+            services.AddScoped<ProductMenu>();
 
             // Handlers
             services.AddScoped<ChoiceHandler>();
