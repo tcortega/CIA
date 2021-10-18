@@ -10,19 +10,23 @@ namespace CIA
     {
         Exit,
         StoreMenu
-
     }
 
     public enum StoreMenuChoices
     {
         Exit,
         RegisterStore,
+        DeleteStore,
+        ListStores
     }
 
     public enum ProductMenuChoices
     {
         Exit,
-        RegisterProduct
+        RegisterProduct,
+        DeleteProduct,
+        UpdateProduct,
+        ViewProducts
     }
 
     public enum SalesMenuChoices
@@ -32,5 +36,14 @@ namespace CIA
         DeleteSale,
         UpdateSale,
         ViewSales
+    }
+
+    public enum InventoryMenuChoices
+    {
+        Exit,
+        RegisterInventory,
+        DeleteInventory,
+        UpdateInventory,
+        ViewInventories
     }
 }

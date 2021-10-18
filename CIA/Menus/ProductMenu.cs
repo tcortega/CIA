@@ -22,8 +22,11 @@ namespace CIA.Menus
         public ProductMenuChoices DisplayAndGetChoice()
         {
             StringBuilder textoMenu = new();
-            textoMenu.AppendLine($"MENU DE LOJAS {Environment.NewLine}");
-            textoMenu.AppendLine("1 - Cadastrar um produto");
+            textoMenu.AppendLine($"MENU DE PRODUTOS {Environment.NewLine}");
+            textoMenu.AppendLine("1 - Cadastrar Produto");
+            textoMenu.AppendLine("2 - Excluir Produto");
+            textoMenu.AppendLine("3 - Alterar Produto");
+            textoMenu.AppendLine("4 - Visualizar Produtos");
             textoMenu.AppendLine("0 - Sair");
             textoMenu.AppendLine("");
 

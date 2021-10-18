@@ -9,7 +9,7 @@ namespace CIA.Core.Entities
     /// <summary>
     /// This entity stores the information about which and how many
     /// products a store have, and what is its price.
-    /// </summary>
+    /// </summary> 
     public class StoreProductEntity : Entity
     {
         /// <summary>

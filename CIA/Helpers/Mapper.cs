@@ -44,5 +44,21 @@ namespace CIA.Helpers
             };
         }
 
+        public static StoreProductEntity MapInventoryDtoToEntity(InventoryDto dto)
+        {
+            return new()
+            {
+                //Name = dto.Name
+            };
+        }
+
+        public static InventoryDto MapInventoryEntityToDto(StoreProductEntity entity)
+        {
+            return new()
+            {
+                Id = entity.Id,
+                //Name = entity.Name
+            };
+        }
     }
 }
