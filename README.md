@@ -5,9 +5,12 @@
 - Trata-se de uma aplicação para controle de vendas e estoque de uma rede de lojas, onde o usuário poderá gerenciar as lojas cadastradas, bem como suas vendas e seus estoques. O usuário irá interagir com a aplicação por meio de uma interface de linha de comando, onde serão dispostos vários menus, são eles:
 
 	1 - Menu de Lojas (responsável pelo gerenciamento das lojas)
+
 	2 - Menu de Produtos (responsável pelo gerenciamento dos produtos)
+
 	3 - Menu de Estoque (responsável pelo gerenciamento do estoque)
-	4 - Menu de Consumidores (resposável pelo gerenciamento de consumidores)
+
+	4 - Menu de Consumidores (responsável pelo gerenciamento de consumidores)
 
 - Neste projeto, foram aplicados os seguintes paradigmas SOLID:
 
@@ -19,5 +22,6 @@
 
 	3 - Interface Segregation Principle
 		 - As interfaces criadas possuem apenas os métodos que realmente serão utilizados pelas classes que irão implementa-las. Elas estão localizadas no CIA.Core, responsáveis pelo armazenamento de dados do projeto.
+
 
 
