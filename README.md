@@ -1,4 +1,8 @@
 # CIA
+## Componentes:
+- Arthur Stuhr Miertschink
+- José Carlos Ribeiro Silva
+- Tarcisio Caetano Ortega
 
 ---
 ## Conteúdo
