@@ -7,6 +7,7 @@
 ---
 ## Conteúdo
 - [Descrição](#descrição)
+- [Download com base populada](download-com-base-populada)
 - [Princípios SOLID](#princípios-solid)
 - [Vídeo Demonstrativo](#vídeo-demonstrativo)
 - [Diagramas de Classe](#diagramas-de-classe)
@@ -27,6 +28,10 @@ Trata-se de uma aplicação para controle de vendas e estoque de uma rede de loj
 - Menu de Estoque (responsável pelo gerenciamento do estoque)
 
 - Menu de Consumidores (responsável pelo gerenciamento de consumidores)
+
+## Download com base populada
+
+- [CIA Base Populada.zip](https://github.com/tcortega/CIA/releases/download/release/cia-release-database.zip)
 
 ## Princípios SOLID
 
