@@ -31,6 +31,8 @@ Trata-se de uma aplicação para controle de vendas e estoque de uma rede de loj
 
 ## Download com base populada
 
+O arquivo é pesado pois foi publicado com sua própria runtime do .NET 5 para garantir funcionamento em todos computadores. 
+
 - [CIA Base Populada.zip](https://github.com/tcortega/CIA/releases/download/release/cia-release-database.zip)
 
 ## Princípios SOLID
