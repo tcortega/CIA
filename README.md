@@ -1,5 +1,17 @@
 # CIA
 
+---
+## Conteúdo
+- [Descrição](#descrição)
+- [Princípios SOLID](#princípios-solid)
+- [Vídeo Demonstrativo](#vídeo-demonstrativo)
+- [Diagramas de Classe](#diagramas-de-classe)
+	- [Projeto CIA](#projeto-cia)
+	- [Projeto CIA.Core](#projeto-ciacore)
+
+
+## Descrição
+
 - Aplicação desenvolvida para o trabalho do primeiro bimestre da disciplina de Programação Orientada a Objetos.
 
 - Trata-se de uma aplicação para controle de vendas e estoque de uma rede de lojas, onde o usuário poderá gerenciar as lojas cadastradas, bem como suas vendas e seus estoques. O usuário irá interagir com a aplicação por meio de uma interface de linha de comando, onde serão dispostos vários menus, são eles:
@@ -12,6 +24,8 @@
 
 	4 - Menu de Consumidores (responsável pelo gerenciamento de consumidores)
 
+## Princípios SOLID
+
 - Neste projeto, foram aplicados os seguintes paradigmas SOLID:
 
 	1 - Principio de Responsabilidade única 
@@ -23,5 +37,14 @@
 	3 - Interface Segregation Principle
 		 - As interfaces criadas possuem apenas os métodos que realmente serão utilizados pelas classes que irão implementa-las. Elas estão localizadas no CIA.Core, responsáveis pelo armazenamento de dados do projeto.
 
+## Vídeo Demonstrativo
+#### Clique [aqui](https://www.youtube.com/watch?v=ePRO7zeJXug) para acessar o vídeo.
+
+## Diagramas de Classe
+
+### Projeto CIA
+![CIA Class Diagram](../media/Images/CIA.png?raw=true)
 
 
+### Projeto CIA.Core
+![CIA.Core Class Diagram](../media/Images/CIA.Core.png?raw=true)
