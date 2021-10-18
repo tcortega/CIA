@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CIA.DTOs
 {
-    public class InventoryDto
+    public class StoreProductDto : BaseDto
     {
-        public int Id { get; set; }
+        public StoreDto Store { get; set; }
+
+        public ProductDto Product { get; set; }
 
         public decimal Price { get; set; }
 
@@ -16,7 +18,7 @@ namespace CIA.DTOs
 
         public override string ToString()
         {
-            return $"Id: {Id} Preco: {Price} Quantidade: {Quantity}";
+            return $"Id: {Id} | Produto: {Product.Name} | Preço: {Price} | Quantidade Disponível: {Quantity}";
         }
 
     }

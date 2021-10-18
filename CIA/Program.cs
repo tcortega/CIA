@@ -43,7 +43,10 @@ namespace CIA
             services.AddTransient<CIAService>();
             services.AddScoped<StoreService>();
             services.AddScoped<ProductService>();
-            services.AddScoped<InventoryService>();
+            services.AddScoped<StoreProductService>();
+            services.AddScoped<CustomerService>();
+            services.AddScoped<SaleService>();
+            services.AddScoped<SaleStoreProductService>();
 
 
             // Menus
@@ -52,6 +55,7 @@ namespace CIA
             services.AddScoped<ProductMenu>();
             services.AddScoped<SalesMenu>();
             services.AddScoped<InventoryMenu>();
+            services.AddScoped<CustomerMenu>();
 
             // Handlers
             services.AddScoped<ChoiceHandler>();
@@ -59,7 +63,10 @@ namespace CIA
             // Repositories
             services.AddScoped<IStoreRepository, DbStoreRepository>();
             services.AddScoped<IProductRepository, DbProductRepository>();
-            services.AddScoped<IInventoryRepository, DbInventoryRepository>();
+            services.AddScoped<IStoreProductRepository, DbStoreProductRepository>();
+            services.AddScoped<ICustomerRepository, DbCustomerRepository>();
+            services.AddScoped<ISaleRepository, DbSaleRepository>();
+            services.AddScoped<ISaleStoreProductRepository, DbSaleStoreProductRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(context.Configuration.GetConnectionString("DefaultConnection"),

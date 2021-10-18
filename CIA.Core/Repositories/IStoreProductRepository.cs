@@ -10,7 +10,7 @@ namespace CIA.Core.Repositories
     /// <summary>
     /// Stores records.
     /// </summary>
-    public interface IInventoryRepository : IRepository<StoreProductEntity>
+    public interface IStoreProductRepository : IRepository<StoreProductEntity>
     {
     }
 }

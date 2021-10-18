@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public class ProductMenu : BaseMenu, IMenu<ProductMenuChoices>
+    public class ProductMenu : BaseMenu, ISubMenu
     {
 
         private readonly ProductService _productService;
@@ -19,10 +19,12 @@ namespace CIA.Menus
             _productService = productService;
         }
 
-        public ProductMenuChoices DisplayAndGetChoice()
+        public SubMenuChoices DisplayAndGetChoice()
         {
             StringBuilder textoMenu = new();
-            textoMenu.AppendLine($"MENU DE PRODUTOS {Environment.NewLine}");
+            textoMenu.AppendLine($"==== MENU DE PRODUTOS ====");
+            textoMenu.AppendLine($"");
+
             textoMenu.AppendLine("1 - Cadastrar Produto");
             textoMenu.AppendLine("2 - Excluir Produto");
             textoMenu.AppendLine("3 - Alterar Produto");
@@ -37,7 +39,7 @@ namespace CIA.Menus
                 try
                 {
                     Console.Write(textoMenu);
-                    return Enum.Parse<ProductMenuChoices>(Console.ReadLine());
+                    return Enum.Parse<SubMenuChoices>(Console.ReadLine());
                 }
                 catch (ArgumentException)
                 {
@@ -47,7 +49,7 @@ namespace CIA.Menus
         }
 
 
-        public void CreateProduct()
+        public void Create()
         {
             Console.Clear();
 
@@ -61,7 +63,7 @@ namespace CIA.Menus
                     Name = productName
                 };
 
-                _productService.AddProduct(product);
+                _productService.Add(product);
 
                 Console.WriteLine("Produto Criado com Sucesso!");
                 Thread.Sleep(1500);
@@ -72,12 +74,12 @@ namespace CIA.Menus
             }
         }
 
-        public void DeleteProduct()
+        public void Delete()
         {
             Console.Clear();
 
-            var productList = _productService.GetAllProducts();
-            var productId = GetProductToDelete(productList);
+            var productList = _productService.GetAll();
+            var productId = ChooseProduct(productList);
 
             if(int.TryParse(productId, out var id) && productList.Any(x => x.Id == id))
             {
@@ -88,20 +90,46 @@ namespace CIA.Menus
             }
         }
 
-        public void ListProducts()
+        public void Update()
         {
             Console.Clear();
 
-            var productList = _productService.GetAllProducts();
+            var productList = _productService.GetAll();
+            var productId = ChooseProduct(productList);
+
+            if (int.TryParse(productId, out var id) && productList.Any(x => x.Id == id))
+            {
+                Console.Clear();
+                var product = productList.FirstOrDefault(x => x.Id == id);
+
+                Console.Write("Insira o novo nome do produto (Deixe em branco para manter): ");
+                var newName = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(newName))
+                {
+                    product.Name = newName;
+                    _productService.Update(product);
+                }
+
+                Console.WriteLine("Produto Alterado com Sucesso!");
+                Thread.Sleep(1500);
+            }
+        }
+
+        public void View()
+        {
+            Console.Clear();
+
+            var productList = _productService.GetAll();
             var productListMenuText = GetProductsAsString(productList);
 
             Console.WriteLine(productListMenuText);
-            Console.WriteLine("Pressione qualquer coisa para voltar...");
+            Console.WriteLine("Pressione qualquer tecla para voltar...");
             Console.ReadKey();
         }
 
 
-        private string GetProductsAsString(IEnumerable<ProductDto> productList)
+        public static string GetProductsAsString(IEnumerable<ProductDto> productList)
         {
             StringBuilder returnstring = new();
             returnstring.AppendLine("Produtos cadastrados:");
@@ -115,14 +143,14 @@ namespace CIA.Menus
             return returnstring.ToString();
         }
 
-        private string GetProductToDelete(IEnumerable<ProductDto> productList)
+        public static string ChooseProduct(IEnumerable<ProductDto> productList)
         {
 
             StringBuilder textoMenu = new();
             textoMenu.AppendLine(GetProductsAsString(productList));
 
             textoMenu.AppendLine("");
-            textoMenu.AppendLine("Insira o Id do produto que deseja deletar: ");
+            textoMenu.AppendLine("Insira o Id do produto que deseja selecionar: ");
 
             Console.Write(textoMenu);
             return Console.ReadLine();

@@ -14,6 +14,7 @@ namespace CIA.Helpers
         {
             return new()
             {
+                Id = dto.Id,
                 Name = dto.Name
             };
         }
@@ -27,10 +28,68 @@ namespace CIA.Helpers
             };
         }
 
+        public static SaleStoreProductEntity MapSaleStoreProductDtoToEntity(SaleStoreProductDto dto)
+        {
+            return new()
+            {
+                Sale = MapSaleDtoToEntity(dto.Sale),
+                StoreProduct = MapStoreProductDtoToEntity(dto.StoreProduct),
+                Quantity = dto.Quantity
+            };
+        }
+
+        public static SaleEntity MapSaleDtoToEntity(SaleDto dto)
+        {
+            return new()
+            {
+                Id = dto.Id,
+                Customer = MapCustomerDtoToEntity(dto.Customer),
+                Status = dto.Status,
+                TotalPrice = dto.TotalPrice
+            };
+        }
+
+        public static SaleDto MapSaleEntityToDto(SaleEntity entity)
+        {
+            return new()
+            {
+                Id = entity.Id,
+                Customer = MapCustomerEntityToDto(entity.Customer),
+                Status = entity.Status,
+                TotalPrice = entity.TotalPrice
+            };
+        }
+
+
+        public static CustomerEntity MapCustomerDtoToEntity(CustomerDto dto)
+        {
+            return new()
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Address = dto.Address,
+                Birthdate = dto.Birthdate,
+                Gender = dto.Gender
+            };
+        }
+
+        public static CustomerDto MapCustomerEntityToDto(CustomerEntity entity)
+        {
+            return new()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Address = entity.Address,
+                Birthdate = entity.Birthdate,
+                Gender = entity.Gender
+            };
+        }
+
         public static ProductEntity MapProductDtoToEntity(ProductDto dto)
         {
             return new()
             {
+                Id = dto.Id,
                 Name = dto.Name
             };
         }
@@ -44,20 +103,27 @@ namespace CIA.Helpers
             };
         }
 
-        public static StoreProductEntity MapInventoryDtoToEntity(InventoryDto dto)
+        public static StoreProductEntity MapStoreProductDtoToEntity(StoreProductDto dto)
         {
             return new()
             {
-                //Name = dto.Name
+                Id = dto.Id,
+                Store = MapStoreDtoToEntity(dto.Store),
+                Product = MapProductDtoToEntity(dto.Product),
+                Price = dto.Price,
+                Quantity = dto.Quantity
             };
         }
 
-        public static InventoryDto MapInventoryEntityToDto(StoreProductEntity entity)
+        public static StoreProductDto MapStoreProductEntityToDto(StoreProductEntity entity)
         {
             return new()
             {
                 Id = entity.Id,
-                //Name = entity.Name
+                Store = MapStoreEntityToDto(entity.Store),
+                Product = MapProductEntityToDto(entity.Product),
+                Price = entity.Price,
+                Quantity = entity.Quantity
             };
         }
     }

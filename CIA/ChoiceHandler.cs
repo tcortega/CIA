@@ -13,12 +13,16 @@ namespace CIA
         private readonly StoreMenu _storeMenu;
         private readonly ProductMenu _productMenu;
         private readonly SalesMenu _salesMenu;
+        private readonly CustomerMenu _customerMenu;
+        private readonly InventoryMenu _inventoryMenu;
 
-        public ChoiceHandler(StoreMenu storeMenu, ProductMenu productMenu, SalesMenu salesMenu)
+        public ChoiceHandler(StoreMenu storeMenu, ProductMenu productMenu, SalesMenu salesMenu, CustomerMenu customerMenu, InventoryMenu inventoryMenu)
         {
             _storeMenu = storeMenu;
             _productMenu = productMenu;
             _salesMenu = salesMenu;
+            _customerMenu = customerMenu;
+            _inventoryMenu = inventoryMenu;
         }
 
         public void Handle(MainMenuChoices choice)
@@ -28,8 +32,32 @@ namespace CIA
             {
                 case MainMenuChoices.StoreMenu:
                     {
-                        var storeChoice = _storeMenu.DisplayAndGetChoice();
-                        HandleStoreChoice(storeChoice);
+                        var subMenuChoice = _storeMenu.DisplayAndGetChoice();
+                        HandleSubMenuChoices(subMenuChoice, _storeMenu);
+                        break;
+                    }
+                case MainMenuChoices.ProductMenu:
+                    {
+                        var subMenuChoice = _productMenu.DisplayAndGetChoice();
+                        HandleSubMenuChoices(subMenuChoice, _productMenu);
+                        break;
+                    }
+                case MainMenuChoices.CustomerMenu:
+                    {
+                        var subMenuChoice = _customerMenu.DisplayAndGetChoice();
+                        HandleSubMenuChoices(subMenuChoice, _customerMenu);
+                        break;
+                    }
+                case MainMenuChoices.InventoryMenu:
+                    {
+                        var subMenuChoice = _inventoryMenu.DisplayAndGetChoice();
+                        HandleSubMenuChoices(subMenuChoice, _inventoryMenu);
+                        break;
+                    }
+                case MainMenuChoices.SalesMenu:
+                    {
+                        var subMenuChoice = _salesMenu.DisplayAndGetChoice();
+                        HandleSubMenuChoices(subMenuChoice, _salesMenu);
                         break;
                     }
                 default:
@@ -40,27 +68,32 @@ namespace CIA
             }
         }
 
-        private void HandleStoreChoice(StoreMenuChoices choice)
+        private void HandleSubMenuChoices(SubMenuChoices choice, ISubMenu menu)
         {
             switch (choice)
             {
-                case StoreMenuChoices.Exit:
+                case SubMenuChoices.Exit:
                     {
                         break;
                     }
-                case StoreMenuChoices.RegisterStore:
+                case SubMenuChoices.Register:
                     {
-                        _storeMenu.CreateStore();
+                        menu.Create();
                         break;
                     }
-                case StoreMenuChoices.DeleteStore:
+                case SubMenuChoices.Delete:
                     {
-                        _storeMenu.DeleteStore();
+                        menu.Delete();
                         break;
                     }
-                case StoreMenuChoices.ListStores:
+                case SubMenuChoices.Update:
                     {
-                        _storeMenu.ListStores();
+                        menu.Update();
+                        break;
+                    }
+                case SubMenuChoices.View:
+                    {
+                        menu.View();
                         break;
                     }
             }

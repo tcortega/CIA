@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CIA.Core.Repositories
 {
-    public class DbInventoryRepository : DbRepository<StoreProductEntity>, IInventoryRepository
+    public class DbSaleStoreProductRepository : DbRepository<SaleStoreProductEntity>, ISaleStoreProductRepository
     {
-        public DbInventoryRepository(ApplicationDbContext context)
+        public DbSaleStoreProductRepository(ApplicationDbContext context)
             : base(context)
         {
 

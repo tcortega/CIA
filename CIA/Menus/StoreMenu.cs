@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    public class StoreMenu : BaseMenu, IMenu<StoreMenuChoices>
+    public class StoreMenu : BaseMenu, ISubMenu
     {
         private readonly StoreService _storeService;
 
@@ -18,15 +18,16 @@ namespace CIA.Menus
             _storeService = storeService;
         }
 
-        public StoreMenuChoices DisplayAndGetChoice()
+        public SubMenuChoices DisplayAndGetChoice()
         {
             StringBuilder textoMenu = new();
-            textoMenu.AppendLine($"MENU DE LOJAS");
+            textoMenu.AppendLine($"==== MENU DE LOJAS ====");
             textoMenu.AppendLine("");
 
             textoMenu.AppendLine("1 - Cadastrar uma loja");
             textoMenu.AppendLine("2 - Deletar uma loja");
-            textoMenu.AppendLine("3 - Listar todas lojas cadastradas");
+            textoMenu.AppendLine("3 - Atualizar lojas cadastradas");
+            textoMenu.AppendLine("4 - Listar todas lojas cadastradas");
             textoMenu.AppendLine("0 - Sair");
             textoMenu.AppendLine("");
 
@@ -36,7 +37,7 @@ namespace CIA.Menus
                 try
                 {
                     Console.Write(textoMenu);
-                    return Enum.Parse<StoreMenuChoices>(Console.ReadLine());
+                    return Enum.Parse<SubMenuChoices>(Console.ReadLine());
                 }
                 catch (ArgumentException)
                 {
@@ -45,7 +46,7 @@ namespace CIA.Menus
             }
         }
 
-        public void CreateStore()
+        public void Create()
         {
             Console.Clear();
 
@@ -70,12 +71,12 @@ namespace CIA.Menus
             }
         }
 
-        public void DeleteStore()
+        public void Delete()
         {
             Console.Clear();
 
-            var storeList = _storeService.GetAllStores();
-            var storeId = GetStoreToDelete(storeList);
+            var storeList = _storeService.GetAll();
+            var storeId = ChooseStore(storeList);
 
             if (int.TryParse(storeId, out var id) && storeList.Any(x => x.Id == id))
             {
@@ -90,19 +91,45 @@ namespace CIA.Menus
             }
         }
 
-        public void ListStores()
+        public void View()
         {
             Console.Clear();
 
-            var storeList = _storeService.GetAllStores();
+            var storeList = _storeService.GetAll();
             var storeListMenuText = GetStoresAsString(storeList);
 
             Console.WriteLine(storeListMenuText);
-            Console.WriteLine("Pressione qualquer coisa para voltar...");
+            Console.WriteLine("Pressione qualquer tecla para voltar...");
             Console.ReadKey();
         }
 
-        private string GetStoresAsString(IEnumerable<StoreDto> storeList)
+        public void Update()
+        {
+            Console.Clear();
+
+            var storeList = _storeService.GetAll();
+            var storeId = ChooseStore(storeList);
+
+            if (int.TryParse(storeId, out var id) && storeList.Any(x => x.Id == id))
+            {
+                Console.Clear();
+                var store = storeList.FirstOrDefault(x => x.Id == id);
+
+                Console.Write("Insira o novo nome da loja (Deixe em branco para manter): ");
+                var newName = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(newName))
+                {
+                    store.Name = newName;
+                    _storeService.Update(store);
+                }
+
+                Console.WriteLine("Loja Alterada com Sucesso!");
+                Thread.Sleep(1500);
+            }
+        }
+
+        public static string GetStoresAsString(List<StoreDto> storeList)
         {
             StringBuilder returnString = new();
             returnString.AppendLine("Lojas cadastradas:");
@@ -116,13 +143,13 @@ namespace CIA.Menus
             return returnString.ToString();
         }
 
-        private string GetStoreToDelete(IEnumerable<StoreDto> storeList)
+        public static string ChooseStore(List<StoreDto> storeList)
         {
             StringBuilder textoMenu = new();
             textoMenu.AppendLine(GetStoresAsString(storeList));
 
             textoMenu.AppendLine("");
-            textoMenu.Append("Insira o Id da loja que deseja deletar: ");
+            textoMenu.Append("Insira o Id da loja em que deseja realizar a operação: ");
 
             Console.Write(textoMenu);
             return Console.ReadLine();

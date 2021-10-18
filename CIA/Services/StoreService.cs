@@ -23,11 +23,11 @@ namespace CIA.Services
             _storeRepo.Add(Mapper.MapStoreDtoToEntity(store));
         }
 
-        public IEnumerable<StoreDto> GetAllStores()
+        public List<StoreDto> GetAll()
         {
-            var entities = _storeRepo.GetAll().ToList();
+            var entities = _storeRepo.GetAll();
 
-            return entities.Select(s => Mapper.MapStoreEntityToDto(s));
+            return entities.Select(s => Mapper.MapStoreEntityToDto(s)).ToList();
         }
 
         public void RemoveById(int id)
@@ -35,6 +35,13 @@ namespace CIA.Services
             var entity = _storeRepo.Get(id);
 
             _storeRepo.Delete(entity);
+        }
+        public void Update(StoreDto store)
+        {
+            var entity = _storeRepo.Get(store.Id);
+            entity.Name = store.Name;
+
+            _storeRepo.Update(entity);
         }
     }
 }

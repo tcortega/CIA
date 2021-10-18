@@ -19,16 +19,22 @@ namespace CIA.Services
             _productRepo = productRepo;
         }
 
-        public void AddProduct(ProductDto product)
+        public void Add(ProductDto product)
         {
             _productRepo.Add(Mapper.MapProductDtoToEntity(product));
         }
 
-        public IEnumerable<ProductDto> GetAllProducts()
+        public ProductDto Get(int id)
         {
-            var entities = _productRepo.GetAll().ToList();
+            var entity = _productRepo.Get(id);
+            return Mapper.MapProductEntityToDto(entity);
+        }
 
-            return entities.Select(p => Mapper.MapProductEntityToDto(p));
+        public List<ProductDto> GetAll()
+        {
+            var entities = _productRepo.GetAll();
+
+            return entities.Select(p => Mapper.MapProductEntityToDto(p)).ToList();
         }
 
         public void RemoveById(int id)
@@ -36,6 +42,14 @@ namespace CIA.Services
             var entity = _productRepo.Get(id);
 
             _productRepo.Delete(entity);
+        }
+
+        public void Update(ProductDto product)
+        {
+            var entity = _productRepo.Get(product.Id);
+            entity.Name = product.Name;
+
+            _productRepo.Update(entity);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CIA.DTOs;
+﻿using CIA.Core.Entities;
+using CIA.DTOs;
 using CIA.Services;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,31 @@ using System.Threading.Tasks;
 
 namespace CIA.Menus
 {
-    class InventoryMenu : BaseMenu, IMenu<InventoryMenuChoices>
+    public class InventoryMenu : BaseMenu, ISubMenu
     {
-        private readonly InventoryService _inventoryService;
+        private readonly StoreProductService _inventoryService;
+        private readonly StoreService _storeService;
+        private readonly ProductService _productService;
 
-        public InventoryMenu(InventoryService productService)
+        private StoreDto _store;
+
+        public InventoryMenu(StoreProductService storeProductService, StoreService storeService, ProductService productService)
         {
-            _inventoryService = productService;
+            _inventoryService = storeProductService;
+            _storeService = storeService;
+            _productService = productService;
         }
 
-        public InventoryMenuChoices DisplayAndGetChoice()
+        public SubMenuChoices DisplayAndGetChoice()
         {
             StringBuilder textoMenu = new();
-            textoMenu.AppendLine($"MENU DE ESTOQUE {Environment.NewLine}");
-            textoMenu.AppendLine("1 - Cadastrar Estoque");
-            textoMenu.AppendLine("2 - Excluir Estoque");
-            textoMenu.AppendLine("3 - Alterar Estoque");
-            textoMenu.AppendLine("4 - Visualizar Estoques");
+            textoMenu.AppendLine($"==== MENU DE ESTOQUE ====");
+            textoMenu.AppendLine($"");
+
+            textoMenu.AppendLine("1 - Cadastrar Item ao estoque");
+            textoMenu.AppendLine("2 - Excluir Item do estoque");
+            textoMenu.AppendLine("3 - Alterar item do estoque");
+            textoMenu.AppendLine("4 - Visualizar items no estoque");
             textoMenu.AppendLine("0 - Sair");
             textoMenu.AppendLine("");
 
@@ -35,84 +44,160 @@ namespace CIA.Menus
             {
                 try
                 {
+                    ChooseStore();
+                    Console.Clear();
+
                     Console.Write(textoMenu);
-                    return Enum.Parse<InventoryMenuChoices>(Console.ReadLine());
+                    return Enum.Parse<SubMenuChoices>(Console.ReadLine());
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    DisplayInvalidChoice();
+                    DisplayInvalidChoice(ex);
                 }
             }
         }
 
-        public void CreateInventory()
+        private void ChooseStore()
         {
             Console.Clear();
 
-            /*Console.WriteLine("Insira o id da loja: ");
-            var inventoryName = Console.ReadLine();
+            var storeList = _storeService.GetAll();
+            var storeId = StoreMenu.ChooseStore(storeList);
 
-            Console.WriteLine("Insira o nome do estoque: ");
-            var inventoryName = Console.ReadLine();*/
-
-            Console.WriteLine("Insira o preco: ");
-            var inventoryPrice = Console.ReadLine();
-
-            Console.WriteLine("Insira a quantidade: ");
-            var inventoryQuantity = Console.ReadLine();
-
-            if (!string.IsNullOrEmpty(inventoryPrice)
-                && !string.IsNullOrEmpty(inventoryQuantity))
+            if (int.TryParse(storeId, out var id) && storeList.Any(x => x.Id == id))
             {
-                var inventory = new InventoryDto()
+                _store = storeList.FirstOrDefault(s => s.Id == id);
+            }
+            else
+            {
+                DisplayInvalidChoice("A loja escolhida não está na lista ou o id é inválido.");
+            }
+        }
+
+        public void Create()
+        {
+            var product = ChooseProduct();
+
+            Console.Write("Insira o preço (Exemplo: 15,50): ");
+            var price = Console.ReadLine().Replace(".", ",");
+
+            Console.Write("Insira a quantidade: ");
+            var quantity = Console.ReadLine();
+
+            if (decimal.TryParse(price, out var newPrice) && int.TryParse(quantity, out var newQuantity))
+            {
+                _inventoryService.Attach(_store, product);
+
+                var storeProduct = new StoreProductDto()
                 {
-                    Price = decimal.Parse(inventoryPrice),
-                    Quantity = int.Parse(inventoryQuantity)
+                    Store = _store,
+                    Product = product,
+                    Price = newPrice,
+                    Quantity = newQuantity
                 };
 
-                _inventoryService.AddInventory(inventory);
+                _inventoryService.AddStoreProduct(storeProduct);
 
-                Console.WriteLine("Estoque Criado com Sucesso!");
+                Console.WriteLine("Item adicionado ao estoque com sucesso.");
                 Thread.Sleep(1500);
             }
             else
             {
-                DisplayInvalidChoice();
+                DisplayInvalidChoice("Preço ou Quantidade estão no formato errados.");
             }
         }
 
-        public void DeleteInventory()
+        private ProductDto ChooseProduct()
         {
             Console.Clear();
 
-            var inventoryList = _inventoryService.GetAllInventories();
-            var inventoryId = GetInventoryToDelete(inventoryList);
+            var storeProducts = _inventoryService.GetAllByStoreId(_store.Id);
+            var productList = _productService.GetAll().Where(p => !storeProducts.Any(x => x.Product.Id == p.Id));
+
+            if (productList.Count() == 0)
+            {
+                throw new ArgumentException("Não existe nenhum produto que já não esteja no estoque.", "M");
+            }
+
+            var productId = ProductMenu.ChooseProduct(productList);
+
+            if (int.TryParse(productId, out var id) && productList.Any(x => x.Id == id))
+            {
+                return productList.FirstOrDefault(s => s.Id == id);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        public void Delete()
+        {
+            Console.Clear();
+
+            var inventoryList = _inventoryService.GetAllByStoreId(_store.Id);
+            var inventoryId = ChooseStoreProduct(inventoryList);
 
             if (int.TryParse(inventoryId, out var id) && inventoryList.Any(x => x.Id == id))
             {
                 _inventoryService.RemoveById(id);
 
-                Console.WriteLine("Estoque Deletado com Sucesso!");
+                Console.WriteLine("Item removido com sucesso do estoque!");
                 Thread.Sleep(1500);
             }
         }
 
-        public void ListInventories()
+        public void Update()
         {
             Console.Clear();
 
-            var inventoryList = _inventoryService.GetAllInventories();
-            var inventoryListMenuText = GetInventoriesAsString(inventoryList);
+            var storeProductList = _inventoryService.GetAllByStoreId(_store.Id);
+            var storeProductId = ChooseStoreProduct(storeProductList);
+
+            if (int.TryParse(storeProductId, out var id) && storeProductList.Any(x => x.Id == id))
+            {
+                Console.Clear();
+                var storeProduct = storeProductList.FirstOrDefault(x => x.Id == id);
+
+                Console.Write("Insira o novo preço (Ex.: 19,90) (Deixe em branco para manter): ");
+                var price = Console.ReadLine().Replace(".", ",");
+
+                Console.Write("Insira a nova quantidade (Deixe em branco para manter): ");
+                var quantity = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(price) && decimal.TryParse(price, out var newPrice))
+                {
+                    storeProduct.Price = newPrice;
+                }
+
+                if (!string.IsNullOrEmpty(quantity) && int.TryParse(quantity, out var newQuantity))
+                {
+                    storeProduct.Quantity = newQuantity;
+                }
+
+                _inventoryService.Update(storeProduct);
+
+                Console.WriteLine("Cliente Alterado com Sucesso!");
+                Thread.Sleep(1500);
+            }
+        }
+
+        public void View()
+        {
+            Console.Clear();
+
+            var inventoryList = _inventoryService.GetAllByStoreId(_store.Id);
+            var inventoryListMenuText = GetStoreProductsAsString(inventoryList);
 
             Console.WriteLine(inventoryListMenuText);
-            Console.WriteLine("Pressione qualquer coisa para voltar...");
+            Console.WriteLine("Pressione qualquer tecla para voltar...");
             Console.ReadKey();
         }
 
-        private string GetInventoriesAsString(IEnumerable<InventoryDto> inventoryList)
+        public static string GetStoreProductsAsString(IEnumerable<StoreProductDto> inventoryList)
         {
             StringBuilder returnstring = new();
-            returnstring.AppendLine("Estoques cadastrados:");
+            returnstring.AppendLine("Items cadastrados no estoque:");
             returnstring.AppendLine("");
 
             foreach (var inventory in inventoryList)
@@ -123,13 +208,13 @@ namespace CIA.Menus
             return returnstring.ToString();
         }
 
-        private string GetInventoryToDelete(IEnumerable<InventoryDto> inventoryList)
+        public static string ChooseStoreProduct(IEnumerable<StoreProductDto> inventoryList)
         {
             StringBuilder textoMenu = new();
-            textoMenu.AppendLine(GetInventoriesAsString(inventoryList));
+            textoMenu.AppendLine(GetStoreProductsAsString(inventoryList));
 
             textoMenu.AppendLine("");
-            textoMenu.AppendLine("Insira o Id do estoque que deseja deletar: ");
+            textoMenu.Append("Insira o Id do item que deseja selecionar: ");
 
             Console.Write(textoMenu);
             return Console.ReadLine();

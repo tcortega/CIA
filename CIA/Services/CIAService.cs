@@ -37,9 +37,9 @@ namespace CIA.Services
                     _choiceHandler.Handle(choice);
                     Console.Clear();
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    _mainMenu.DisplayInvalidChoice();
+                    _mainMenu.DisplayInvalidChoice(ex);
                 }
             }
         }

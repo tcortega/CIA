@@ -11,8 +11,15 @@ namespace CIA.Menus
         public MainMenuChoices DisplayAndGetChoice()
         {
             var textoMenu = new StringBuilder();
-            textoMenu.AppendLine("MENU PRINCIPAL");
+            textoMenu.AppendLine("==== MENU PRINCIPAL ====");
+            textoMenu.AppendLine($"");
+
             textoMenu.AppendLine("1 - Menu de Lojas");
+            textoMenu.AppendLine("2 - Menu de Produtos");
+            textoMenu.AppendLine("3 - Menu de Clientes");
+            textoMenu.AppendLine("4 - Menu de Estoque");
+            textoMenu.AppendLine("5 - Menu de Vendas");
+            textoMenu.AppendLine("0 - Sair do programa");
             textoMenu.AppendLine("");
 
             textoMenu.Append("Escolha um menu: ");

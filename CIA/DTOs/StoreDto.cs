@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace CIA.DTOs
 {
-    public class StoreDto
+    public class StoreDto : BaseDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
         public override string ToString()
         {
-            return $"Id: {Id} Name: {Name}";
+            return $"Id: {Id} | Nome: {Name}";
         }
     }
 }

@@ -9,41 +9,19 @@ namespace CIA
     public enum MainMenuChoices
     {
         Exit,
-        StoreMenu
+        StoreMenu,
+        ProductMenu,
+        CustomerMenu,
+        InventoryMenu,
+        SalesMenu,
     }
 
-    public enum StoreMenuChoices
+    public enum SubMenuChoices
     {
         Exit,
-        RegisterStore,
-        DeleteStore,
-        ListStores
-    }
-
-    public enum ProductMenuChoices
-    {
-        Exit,
-        RegisterProduct,
-        DeleteProduct,
-        UpdateProduct,
-        ViewProducts
-    }
-
-    public enum SalesMenuChoices
-    {
-        Exit,
-        RegisterSale,
-        DeleteSale,
-        UpdateSale,
-        ViewSales
-    }
-
-    public enum InventoryMenuChoices
-    {
-        Exit,
-        RegisterInventory,
-        DeleteInventory,
-        UpdateInventory,
-        ViewInventories
+        Register,
+        Delete,
+        Update,
+        View
     }
 }

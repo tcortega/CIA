@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -74,5 +75,8 @@ namespace CIA.Core.Repositories
 
         /// <inheritdoc/>
         public void Attach<TEntity>(TEntity entity) where TEntity : Entity => _context.Attach(entity);
+
+        /// <inheritdoc/>
+        public void Detach<TEntity>(TEntity entity) where TEntity : Entity => _context.Entry(entity).CurrentValues.SetValues(entity);
     }
 }
