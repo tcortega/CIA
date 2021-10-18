@@ -67,5 +67,13 @@ namespace CIA.Services
                 _storeProductRepo.Update(entity.StoreProduct);
             }
         }
+
+        public bool ExistsByStoreProductId(int id)
+        {
+            var entities = _saleStoreProductRepo.GetAll()
+                .Where(x => x.StoreProduct.Id == id);
+
+            return entities.Count() > 0;
+        }
     }
 }

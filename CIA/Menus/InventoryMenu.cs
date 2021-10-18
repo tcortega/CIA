@@ -12,17 +12,19 @@ namespace CIA.Menus
 {
     public class InventoryMenu : BaseMenu, ISubMenu
     {
-        private readonly StoreProductService _inventoryService;
+        private readonly StoreProductService _storeProductService;
         private readonly StoreService _storeService;
         private readonly ProductService _productService;
-
+        private readonly SaleStoreProductService _saleStoreProductService;
         private StoreDto _store;
 
-        public InventoryMenu(StoreProductService storeProductService, StoreService storeService, ProductService productService)
+        public InventoryMenu(StoreProductService storeProductService, StoreService storeService, ProductService productService,
+            SaleStoreProductService saleStoreProductService)
         {
-            _inventoryService = storeProductService;
+            _storeProductService = storeProductService;
             _storeService = storeService;
             _productService = productService;
+            _saleStoreProductService = saleStoreProductService;
         }
 
         public SubMenuChoices DisplayAndGetChoice()
@@ -86,8 +88,6 @@ namespace CIA.Menus
 
             if (decimal.TryParse(price, out var newPrice) && int.TryParse(quantity, out var newQuantity))
             {
-                _inventoryService.Attach(_store, product);
-
                 var storeProduct = new StoreProductDto()
                 {
                     Store = _store,
@@ -96,7 +96,7 @@ namespace CIA.Menus
                     Quantity = newQuantity
                 };
 
-                _inventoryService.AddStoreProduct(storeProduct);
+                _storeProductService.Add(storeProduct);
 
                 Console.WriteLine("Item adicionado ao estoque com sucesso.");
                 Thread.Sleep(1500);
@@ -111,7 +111,7 @@ namespace CIA.Menus
         {
             Console.Clear();
 
-            var storeProducts = _inventoryService.GetAllByStoreId(_store.Id);
+            var storeProducts = _storeProductService.GetAllByStoreId(_store.Id);
             var productList = _productService.GetAll().Where(p => !storeProducts.Any(x => x.Product.Id == p.Id));
 
             if (productList.Count() == 0)
@@ -127,7 +127,7 @@ namespace CIA.Menus
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("O produto selecionado não existe.", "M");
             }
         }
 
@@ -135,14 +135,22 @@ namespace CIA.Menus
         {
             Console.Clear();
 
-            var inventoryList = _inventoryService.GetAllByStoreId(_store.Id);
+            var inventoryList = _storeProductService.GetAllByStoreId(_store.Id);
             var inventoryId = ChooseStoreProduct(inventoryList);
 
             if (int.TryParse(inventoryId, out var id) && inventoryList.Any(x => x.Id == id))
             {
-                _inventoryService.RemoveById(id);
+                if (_saleStoreProductService.ExistsByStoreProductId(id))
+                {
+                    Console.WriteLine("Não é possível deletar um item do estoque no qual já existem vendas associadas.");
+                }
+                else
+                {
+                    _storeProductService.RemoveById(id);
 
-                Console.WriteLine("Item removido com sucesso do estoque!");
+                    Console.WriteLine("Item removido com sucesso do estoque!");
+                }
+
                 Thread.Sleep(1500);
             }
         }
@@ -151,7 +159,7 @@ namespace CIA.Menus
         {
             Console.Clear();
 
-            var storeProductList = _inventoryService.GetAllByStoreId(_store.Id);
+            var storeProductList = _storeProductService.GetAllByStoreId(_store.Id);
             var storeProductId = ChooseStoreProduct(storeProductList);
 
             if (int.TryParse(storeProductId, out var id) && storeProductList.Any(x => x.Id == id))
@@ -175,7 +183,7 @@ namespace CIA.Menus
                     storeProduct.Quantity = newQuantity;
                 }
 
-                _inventoryService.Update(storeProduct);
+                _storeProductService.Update(storeProduct);
 
                 Console.WriteLine("Cliente Alterado com Sucesso!");
                 Thread.Sleep(1500);
@@ -186,7 +194,7 @@ namespace CIA.Menus
         {
             Console.Clear();
 
-            var inventoryList = _inventoryService.GetAllByStoreId(_store.Id);
+            var inventoryList = _storeProductService.GetAllByStoreId(_store.Id);
             var inventoryListMenuText = GetStoreProductsAsString(inventoryList);
 
             Console.WriteLine(inventoryListMenuText);

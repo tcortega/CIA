@@ -18,7 +18,7 @@ namespace CIA.Services
             _customerRepo = customerRepo;
         }
 
-        public void AddCustomer(CustomerDto customer)
+        public void Add(CustomerDto customer)
         {
             _customerRepo.Add(Mapper.MapCustomerDtoToEntity(customer));
         }

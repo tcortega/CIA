@@ -71,7 +71,5 @@ namespace CIA.Core.Repositories
         /// in a one to many relationship.
         /// </summary>>
         public void Attach<TEntity>(TEntity entity) where TEntity : Entity;
-
-        public void Detach<TEntity>(TEntity entity) where TEntity : Entity;
     }
 }

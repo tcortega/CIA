@@ -14,10 +14,12 @@ namespace CIA.Menus
     {
 
         private readonly CustomerService _customerService;
+        private readonly SaleService _saleService;
 
-        public CustomerMenu(CustomerService customerService)
+        public CustomerMenu(CustomerService customerService, SaleService saleService)
         {
             _customerService = customerService;
+            _saleService = saleService;
         }
 
         public SubMenuChoices DisplayAndGetChoice()
@@ -79,7 +81,7 @@ namespace CIA.Menus
                         Gender = gender
                     };
 
-                    _customerService.AddCustomer(customer);
+                    _customerService.Add(customer);
 
                     Console.WriteLine("Cliente cadastrado com Sucesso!");
                     Thread.Sleep(1500);
@@ -104,9 +106,16 @@ namespace CIA.Menus
 
             if (int.TryParse(customerId, out var id) && customerList.Any(x => x.Id == id))
             {
-                _customerService.RemoveById(id);
+                if (_saleService.ExistsByCustomerId(id))
+                {
+                    Console.WriteLine("Não é possível deletar o cliente pois ele já realizou compras.");
+                }
+                else
+                {
+                    _customerService.RemoveById(id);
 
-                Console.WriteLine("Cliente Deletado com Sucesso!");
+                    Console.WriteLine("Cliente Deletado com Sucesso!");
+                }
                 Thread.Sleep(1500);
             }
         }

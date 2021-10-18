@@ -16,15 +16,18 @@ namespace CIA.Services
         private readonly IStoreProductRepository _storeProductRepo;
         private readonly IProductRepository _productRepo;
         private readonly IStoreRepository _storeRepo;
+        private readonly ISaleStoreProductRepository _saleStoreProductRepo;
 
-        public StoreProductService(IStoreProductRepository storeProductRepo, IProductRepository productRepo, IStoreRepository storeRepo)
+        public StoreProductService(IStoreProductRepository storeProductRepo, IProductRepository productRepo, IStoreRepository storeRepo,
+            ISaleStoreProductRepository saleStoreProductRepo)
         {
             _storeProductRepo = storeProductRepo;
             _productRepo = productRepo;
             _storeRepo = storeRepo;
+            _saleStoreProductRepo = saleStoreProductRepo;
         }
 
-        public void AddStoreProduct(StoreProductDto storeProduct)
+        public void Add(StoreProductDto storeProduct)
         {
             var storeProductEntity = Mapper.MapStoreProductDtoToEntity(storeProduct);
             storeProductEntity.Product = _productRepo.Get(storeProduct.Product.Id);
@@ -45,26 +48,32 @@ namespace CIA.Services
         public void RemoveById(int id)
         {
             var entity = _storeProductRepo.Get(id);
-
-            _storeProductRepo.Delete(entity);
+            if (entity != null)
+            {
+                _storeProductRepo.Delete(entity);
+            }
         }
 
         public void Update(StoreProductDto storeProduct)
         {
+            var storeEntity = _storeRepo.Get(storeProduct.Store.Id);
+            var productEntity = _productRepo.Get(storeProduct.Product.Id);
+
             var entity = _storeProductRepo.Get(storeProduct.Id);
+            entity.Store = storeEntity;
+            entity.Product = productEntity;
             entity.Price = storeProduct.Price;
             entity.Quantity = storeProduct.Quantity;
 
             _storeProductRepo.Update(entity);
         }
 
-        public void Attach(StoreDto store, ProductDto product)
+        public bool ExistsByStoreId(int id)
         {
-            var productEntity = _productRepo.Get(product.Id);
-            _storeProductRepo.Attach(productEntity);
+            var entities = _storeProductRepo.GetAll()
+                .Where(x => x.Store.Id == id);
 
-            var storeEntity = _storeRepo.Get(store.Id);
-            _storeProductRepo.Attach(storeEntity);
+            return entities.Count() > 0;
         }
     }
 }

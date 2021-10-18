@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CIA.Program">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAADAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Menus.BaseMenu">
+    <Position X="2.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menus\BaseMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Menus.CustomerMenu">
+    <Position X="5.75" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAAQAAAAAIAAAAIAAEBAEAAAAACAAAAAAA=</HashCode>
+      <FileName>Menus\CustomerMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.Menus.InventoryMenu">
+    <Position X="9.25" Y="4.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>ACQgAAwAAABAQgBAAAAAAAAACAEBAEAAAAAAAAAAAAE=</HashCode>
+      <FileName>Menus\InventoryMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.Menus.ProductMenu">
+    <Position X="13" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAABARAAAAAAAAAAAAAEBAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menus\ProductMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.Menus.SalesMenu">
+    <Position X="16.25" Y="4.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ACQAABgASAAAQAAAQAIAAAAICAEBAGACgAAAAAAAAAU=</HashCode>
+      <FileName>Menus\SalesMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.Menus.StoreMenu">
+    <Position X="20.25" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAgAAAAAQAAAAAAAAAAACAEBAEAAAAAAAAAIAAA=</HashCode>
+      <FileName>Menus\StoreMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.Menus.MainMenu">
+    <Position X="2.5" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menus\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CIA.ChoiceHandler">
+    <Position X="2.5" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAABAAAAAAAAAAAAAAAAAAAAAIIAAAIAAAAAAA=</HashCode>
+      <FileName>ChoiceHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.CIAService">
+    <Position X="0.5" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\CIAService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.CustomerService">
+    <Position X="6.25" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAgAAAAAAAAAAAAAAIAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Services\CustomerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.ProductService">
+    <Position X="9.25" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAYAAAAAAAAAAgBAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Services\ProductService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.SaleService">
+    <Position X="3.25" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAEAAAAAAAAAAAAAAAAIAAAAgAAAAAAABA=</HashCode>
+      <FileName>Services\SaleService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.SaleStoreProductService">
+    <Position X="12" Y="10" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAEAAAgAAAACAAAAAAABAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Services\SaleStoreProductService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.StoreProductService">
+    <Position X="18.5" Y="10" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>EAYAAAAAAAAAIgAAAAAACAAAAAAABAAAAAAAAAAABgA=</HashCode>
+      <FileName>Services\StoreProductService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Services.StoreService">
+    <Position X="16" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAIgAAAAAAAAAAAAAAAAAAAgAAAAAAIAA=</HashCode>
+      <FileName>Services\StoreService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Helpers.Mapper">
+    <Position X="14" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAABABAAAAgACAAAEAAAAAAgAAAIAAABAIAgIAAAA=</HashCode>
+      <FileName>Helpers\Mapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.BaseDto">
+    <Position X="6.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\BaseDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.CustomerDto">
+    <Position X="6" Y="14.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACEAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\CustomerDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.ProductDto">
+    <Position X="12" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\ProductDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.SaleDto">
+    <Position X="0.5" Y="14.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAEAAAAAAAEAAAAAAAAAAAAQAAAABAAgAAAAAA=</HashCode>
+      <FileName>DTOs\SaleDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.SaleStoreProductDto">
+    <Position X="8.5" Y="14.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACIAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>DTOs\SaleStoreProductDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.StoreDto">
+    <Position X="14.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\StoreDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.DTOs.StoreProductDto">
+    <Position X="3.5" Y="14.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAgQAAAAA=</HashCode>
+      <FileName>DTOs\StoreProductDto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIA.Utilities.ConsoleUtilities">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ConsoleUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CIA.Menus.IMenu&lt;T&gt;">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menus\IMenu.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CIA.Menus.ISubMenu" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEBAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menus\ISubMenu.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CIA.MainMenuChoices">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAIAAAAAAAAAAAAAAAAAAAAIgAAAAAgAAE=</HashCode>
+      <FileName>EnumChoices.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CIA.SubMenuChoices">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEBAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>EnumChoices.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

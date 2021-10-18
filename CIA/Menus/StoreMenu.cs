@@ -12,10 +12,12 @@ namespace CIA.Menus
     public class StoreMenu : BaseMenu, ISubMenu
     {
         private readonly StoreService _storeService;
+        private readonly StoreProductService _storeProductService;
 
-        public StoreMenu(StoreService storeService)
+        public StoreMenu(StoreService storeService, StoreProductService storeProductService)
         {
             _storeService = storeService;
+            _storeProductService = storeProductService;
         }
 
         public SubMenuChoices DisplayAndGetChoice()
@@ -80,15 +82,23 @@ namespace CIA.Menus
 
             if (int.TryParse(storeId, out var id) && storeList.Any(x => x.Id == id))
             {
-                _storeService.RemoveById(id);
+                if (_storeProductService.ExistsByStoreId(id))
+                {
+                    Console.WriteLine("Não é possível deletar a loja pois ela tem items cadastrados no estoque.");
+                }
+                else
+                {
+                    _storeService.RemoveById(id);
 
-                Console.WriteLine("Loja deletada com sucesso!");
-                Thread.Sleep(1500);
+                    Console.WriteLine("Loja deletada com sucesso!");
+                }
             }
             else
             {
-                DisplayInvalidChoice();
+                throw new ArgumentException();
             }
+
+            Thread.Sleep(1500);
         }
 
         public void View()

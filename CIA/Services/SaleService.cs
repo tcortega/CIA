@@ -48,32 +48,12 @@ namespace CIA.Services
             _saleRepo.Update(entity);
         }
 
-        //public ProductDto Get(int id)
-        //{
-        //    var entity = _saleRepo.Get(id);
-        //    return Mapper.MapProductEntityToDto(entity);
-        //}
+        public bool ExistsByCustomerId(int id)
+        {
+            var entities = _saleRepo.GetAll()
+                .Where(x => x.Customer.Id == id);
 
-        //public IEnumerable<ProductDto> GetAll()
-        //{
-        //    var entities = _saleRepo.GetAll().ToList();
-
-        //    return entities.Select(p => Mapper.MapProductEntityToDto(p));
-        //}
-
-        //public void RemoveById(int id)
-        //{
-        //    var entity = _saleRepo.Get(id);
-
-        //    _saleRepo.Delete(entity);
-        //}
-
-        //public void Update(ProductDto sale)
-        //{
-        //    var entity = _saleRepo.Get(sale.Id);
-        //    entity.Name = sale.Name;
-
-        //    _saleRepo.Update(entity);
-        //}
+            return entities.Count() > 0;
+        }
     }
 }
